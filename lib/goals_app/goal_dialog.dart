@@ -95,7 +95,7 @@ class _GoalDialogNewState extends State<GoalDialogNew> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.isEditMode ? 'Edit Goal' : 'Add New Goal',
+                widget.isEditMode ? 'Edit Goals' : 'Add New Goal',
                 style: TextStyle(
                   color: widget.isEditMode
                       ? const Color(0xFFE91E63)
