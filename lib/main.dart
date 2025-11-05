@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_basics_app/counter.dart';
+import 'package:flutter_basics_app/cubit/counter_cubit.dart';
 import 'package:flutter_basics_app/goals_app/goal_model.dart';
 import 'package:flutter_basics_app/goals_app/hive_servisces.dart';
-import 'package:flutter_basics_app/hive_test.dart';
+import 'package:flutter_basics_app/news_app.dart';
+import 'package:flutter_basics_app/news_cubit/news_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
@@ -23,8 +27,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HiveTest(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => CounterCubit()),
+          BlocProvider(create: (context) => NewsCubit()..getNews()),
+        ],
+        child: NewsApp(),
+      ),
     );
   }
 }
-

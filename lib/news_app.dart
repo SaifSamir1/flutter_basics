@@ -1,71 +1,56 @@
-
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_basics_app/news_model.dart';
+import 'package:flutter_basics_app/news_cubit/news_cubit.dart';
+import 'package:flutter_basics_app/news_cubit/news_states.dart';
+import 'package:flutter_basics_app/widgets/error_view.dart';
+import 'package:flutter_basics_app/widgets/news_card.dart';
+import 'package:flutter_basics_app/widgets/news_header.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class NewsApp extends StatefulWidget {
+class NewsApp extends StatelessWidget {
   const NewsApp({super.key});
-
-  @override
-  State<NewsApp> createState() => _NewsAppState();
-}
-
-class _NewsAppState extends State<NewsApp> {
-
-  NewsModel? news;
-
-  bool isLoading = true;
-
-  @override
-  void initState()  {
-    super.initState();
-    getNews();
-  }
-
-
-  final Dio dio = Dio();
-
-  final apiPath = "https://newsapi.org/v2/everything?domains=techcrunch.com&apiKey=1f61186025724ff99436bd7ca9fa128d";
-
-  Future<void> getNews() async {
-
-   final response = await dio.get(apiPath);
-
-   dynamic jsonResponse  = response.data;
-
-    news = NewsModel.fromJson(jsonResponse);
-
-    isLoading = false ;
-    setState(() {
-      
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('News App'),
+        title: const Text('Tech News'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: context.read<NewsCubit>().getNews,
+          ),
+        ],
       ),
-      body: isLoading ? Center(child: CircularProgressIndicator()) :  Center(
-        child: Column(
-          children: [
-            Text('Total Result = ${news?.totalResults ?? 316 }'),
-            SizedBox(height: 20,),
-            Expanded(
-              child: ListView.builder(
-                itemCount: news!.articles!.length,
-                itemBuilder: (context , index){
-                  return ListTile(
-                    title: Text('${news!.articles![index].title}'),
-                    subtitle: Text('${news!.articles![index].description}'),
-                  );
-              }),
-            )
-          ],
-        ),
+      body: BlocBuilder<NewsCubit, NewsStates>(
+        builder: (context, state) {
+          if (state is NewsLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is NewsError) {
+            return ErrorView(
+              message: state.error,
+              onRetry: context.read<NewsCubit>().getNews,
+            );
+          }
+          else {
+            final news = context.read<NewsCubit>().news;
+            return Column(
+                children: [
+                  NewsHeader(totalResults: news?.totalResults ?? 0),
+                  Expanded(
+                    child: ListView.builder(
+                      padding: const EdgeInsets.all(8),
+                      itemCount: news!.articles!.length,
+                      itemBuilder: (context, index) {
+                        return NewsCard(article: news.articles![index]);
+                      },
+                    ),
+                  ),
+                ],
+              );
+          }
+        },
       ),
+      
     );
   }
 }
