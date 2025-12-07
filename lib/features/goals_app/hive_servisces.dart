@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'package:flutter_basics_app/goals_app/goal_model.dart';
+import 'package:flutter_basics_app/features/goals_app/goal_model.dart';
 import 'package:hive/hive.dart';
 
 class HiveServices {

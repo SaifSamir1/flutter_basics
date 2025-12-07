@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_basics_app/news_cubit/news_cubit.dart';
-import 'package:flutter_basics_app/news_cubit/news_states.dart';
+import 'package:flutter_basics_app/features/news_cubit/news_cubit.dart';
+import 'package:flutter_basics_app/features/news_cubit/news_states.dart';
 import 'package:flutter_basics_app/widgets/error_view.dart';
 import 'package:flutter_basics_app/widgets/news_card.dart';
 import 'package:flutter_basics_app/widgets/news_header.dart';

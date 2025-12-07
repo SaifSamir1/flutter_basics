@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_basics_app/goals_app/goal_dialog.dart';
-import 'package:flutter_basics_app/goals_app/goal_model.dart';
-import 'package:flutter_basics_app/goals_app/hive_servisces.dart';
+import 'package:flutter_basics_app/features/goals_app/goal_dialog.dart';
+import 'package:flutter_basics_app/features/goals_app/goal_model.dart';
+import 'package:flutter_basics_app/features/goals_app/hive_servisces.dart';
 
 
 class GoalsPageNew extends StatefulWidget {

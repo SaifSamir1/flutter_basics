@@ -19,6 +19,7 @@ class ListViewWidget extends StatelessWidget {
             title: Text(pepole[index].name),
             subtitle: Text('${pepole[index].number}'),
             leading: Text('${pepole[index].id}'),
+            iconColor: pepole[index].isDeifferent ? Colors.red : Colors.blue,
           );
       })
     );

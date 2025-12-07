@@ -5,7 +5,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_basics_app/models/news_model.dart';
-import 'package:flutter_basics_app/news_cubit/news_states.dart';
+import 'package:flutter_basics_app/features/news_cubit/news_states.dart';
 
 class NewsCubit extends Cubit<NewsStates>
 {
