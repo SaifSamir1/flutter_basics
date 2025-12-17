@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => NewsCubit()..getNews()),
         ],
         child: NewsApp(),
+      
       ),
     );
   }

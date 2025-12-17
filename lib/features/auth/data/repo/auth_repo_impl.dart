@@ -29,7 +29,8 @@ class AuthRepoIplm extends AuthRepo {
       email: creidential.user!.email ?? '',
       phoneNumber: creidential.user!.phoneNumber ?? '',
     );
-     return Right(user);
+
+    return Right(user);
     } catch (e) {
       return Left(e.toString());
     }
@@ -62,7 +63,20 @@ class AuthRepoIplm extends AuthRepo {
     if(creidential.user == null){
       return Left('User creation failed');
     }
-    return Right(userModel);
+    
+    final user = UserModel(
+      id: creidential.user!.uid,
+      name: userModel.name,
+      email: userModel.email,
+      phoneNumber: userModel.phoneNumber,
+    );
+
+    await firebaseFirestore
+        .collection('users')
+        .doc(user.id)
+        .set(user.toJson());
+
+    return Right(user);
     } catch (e) {
       return Left(e.toString());
     }
