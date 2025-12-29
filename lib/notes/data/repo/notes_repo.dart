@@ -14,5 +14,6 @@ abstract class NotesRepo {
   Future<Either<String, void>> updateNote(NotesModel note);
 
   Future<Either<String, void>> deleteNote(NotesModel note);
+  
   Stream<Either<String, List<NotesModel>>> notesStream();
  }
